@@ -1,0 +1,49 @@
+services:
+  api:
+    restart: always
+    build:
+      context: .
+      target: dev
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "1903:${PORT:-8000}"
+    environment:
+      ENVIRONMENT: dev
+      DEBUG: True
+    depends_on:
+      - db
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${PORT:-8000}/v1/status"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 5s
+
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: bjk
+      POSTGRES_PASSWORD: 2025bjk1903
+      POSTGRES_DB: ebay_api
+    ports:
+      - "5430:5432"
+    networks:
+      - app-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U bjk -d ebay_api" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge

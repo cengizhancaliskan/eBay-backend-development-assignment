@@ -1,0 +1,127 @@
+[tool.poetry]
+name = "ebay-backend-development-assignment"
+version = "0.1.0"
+description = "eBay Backend Development Assignment"
+authors = ["Cengizhan Çalışkan <cengizhancaliskan@gmail.com>"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115.6"
+uvicorn = {extras = ["standard"], version = "^0.34.0"}
+sqlalchemy = "^2.0.36"
+pydantic = "^2.10.4"
+pydantic-settings = "^2.7.1"
+asyncpg = "^0.30.0"
+alembic = "^1.14.0"
+greenlet = "^3.1.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-asyncio = "^0.25.2"
+pytest-cov = "^6.0.0"
+mock-alchemy = "^0.2.6"
+black = "^24.10.0"
+isort = "^5.13.2"
+flake8 = "^7.1.1"
+mypy = "^1.14.1"
+pre-commit = "^4.0.1"
+autoflake = "^2.3.1"
+fastapi-cli = "^0.0.7"
+flake8-pyproject = "^1.2.3"
+httpx = "^0.28.1"
+
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.8"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# black configuration
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+
+# isort configuration
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 88
+
+# flake8 configuration
+
+[tool.flake8]
+# https://www.flake8rules.com/
+ignore = [
+    "E203",  # Whitespace before ':'
+    "E266",  # Too many leading '#' for block comment
+    "E501",  # Line too long
+    "W503",   # Line break occurred before a binary operator
+    "C901", # Function is too complex
+]
+max-line-length = 120
+filename = ["*.py"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "tests/*",
+]
+show-source = true
+count = true
+python-version = ["3.11"]
+max-complexity = 10
+
+# mypy configuration
+
+[tool.mypy]
+python_version = "3.11"
+pretty = true
+files = "**/*.py"
+exclude = [
+    'tests'
+]
+ignore_missing_imports = true
+allow_untyped_defs = false
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+implicit_reexport = true
+strict_optional = true
+show_error_context = true
+show_column_numbers = true
+show_error_codes = true
+plugins = "pydantic.mypy"
+
+# pytest configuration
+
+[tool.pytest.ini_options]
+#pythonpath = "."
+pythonpath = [
+    "src"
+]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+addopts = "-v -s --tb=short"
+
+asyncio_default_fixture_loop_scope = "function"
+# coverage configuration
+
+[tool.coverage.run]
+omit = [
+    "*/__init__.py",
+    "*/app.py",
+    "*/main.py",
+    "*/tests/*",
+    "*/test_*.py",
+    "*migrations*",
+]
