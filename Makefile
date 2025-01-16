@@ -30,6 +30,12 @@ test:
 run:
 	poetry run uvicorn src.main:app --reload --host $(HOST) --port $(PORT) --workers $(WORKER_COUNT)
 
+migrate:
+	poetry run alembic upgrade head
+
+migrations:
+	poetry run alembic revision --autogenerate -m "$(message)"
+
 # Docker commands
 docker-build:
 	docker compose build

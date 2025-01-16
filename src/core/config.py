@@ -22,10 +22,12 @@ class Settings(BaseSettings):
 
     # Database Settings
     POSTGRES_SERVER: str
+    POSTGRES_PORT: str
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
     DATABASE_URL: str | None = None
+    DB_TABLE_PREFIX: str = "test_"
 
     @property
     def sync_database_url(self) -> str:
@@ -33,7 +35,7 @@ class Settings(BaseSettings):
             return self.DATABASE_URL
         return (
             f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
-            f"@{self.POSTGRES_SERVER}/{self.POSTGRES_DB}"
+            f"@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         )
 
     @property
@@ -42,7 +44,7 @@ class Settings(BaseSettings):
             return self.DATABASE_URL
         return (
             f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
-            f"@{self.POSTGRES_SERVER}/{self.POSTGRES_DB}"
+            f"@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         )
 
 
@@ -54,5 +56,4 @@ def get_settings() -> Settings:
     return Settings()
 
 
-if __name__ == "__main__":
-    settings = get_settings()
+settings = get_settings()
