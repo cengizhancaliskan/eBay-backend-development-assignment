@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -44,4 +46,13 @@ class Settings(BaseSettings):
         )
 
 
-settings = Settings()
+@lru_cache
+def get_settings() -> Settings:
+    """
+    Create cached settings instance to avoid reading env variables multiple times
+    """
+    return Settings()
+
+
+if __name__ == "__main__":
+    settings = get_settings()
