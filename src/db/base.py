@@ -17,7 +17,7 @@ async_session = sessionmaker(
     expire_on_commit=False,
     autocommit=False,
     autoflush=False,
-)
+)  # type: ignore
 
 Base = declarative_base()
 

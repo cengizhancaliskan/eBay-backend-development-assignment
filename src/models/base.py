@@ -13,4 +13,5 @@ class TableNameMixin:
 
 class BaseModel(Base, TableNameMixin):
     """Base model class with table prefix support."""
+
     __abstract__ = True

@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from src.core.config import settings
 from src.schemas.status import StatusResponse
 
-router = APIRouter()
+router = APIRouter(prefix="/status", tags=["health_check"])
 
 
 @router.get("", response_model=StatusResponse)

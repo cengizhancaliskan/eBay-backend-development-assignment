@@ -1,24 +1,59 @@
 from datetime import datetime
 from typing import List
 
-from sqlalchemy import ARRAY, Boolean, DateTime, ForeignKey, Integer, JSON, String
+from sqlalchemy import (
+    ARRAY,
+    JSON,
+    Boolean,
+    Column,
+    DateTime,
+    ForeignKey,
+    Integer,
+    String,
+    Table,
+)
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.models.base import BaseModel
+
+# Association table for many-to-many relationship
+listing_entity_association = Table(
+    "listing_entity_association",
+    BaseModel.metadata,
+    Column(
+        "listing_id",
+        String,
+        ForeignKey(BaseModel.get_table_name("listings") + ".listing_id"),
+        primary_key=True,
+    ),
+    Column(
+        "entity_id",
+        Integer,
+        ForeignKey(BaseModel.get_table_name("dataset_entities") + ".entity_id"),
+        primary_key=True,
+    ),
+)
 
 
 class Listing(BaseModel):
     __tablename__ = BaseModel.get_table_name("listings")
 
     listing_id: Mapped[str] = mapped_column(String, primary_key=True)
-    scan_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    scan_date: Mapped[datetime] = mapped_column(
+        DateTime(timezone=False), nullable=False
+    )
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False)
-    dataset_entity_ids: Mapped[List[int]] = mapped_column(ARRAY(Integer), nullable=False)
+    dataset_entity_ids: Mapped[List[int]] = mapped_column(
+        ARRAY(Integer), nullable=False
+    )
     image_hashes: Mapped[List[str]] = mapped_column(ARRAY(String), nullable=False)
 
     # Relationships
     string_properties = relationship("StringPropertyValue", back_populates="listing")
     boolean_properties = relationship("BooleanPropertyValue", back_populates="listing")
+    entities = relationship(
+        "DatasetEntity", secondary=listing_entity_association, back_populates="listings"
+    )
 
 
 class Property(BaseModel):
@@ -27,7 +62,6 @@ class Property(BaseModel):
     property_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     type: Mapped[str] = mapped_column(String, nullable=False)
-
     # Relationships
     string_values = relationship("StringPropertyValue", back_populates="property")
     boolean_values = relationship("BooleanPropertyValue", back_populates="property")
@@ -39,15 +73,14 @@ class StringPropertyValue(BaseModel):
     listing_id: Mapped[str] = mapped_column(
         String,
         ForeignKey(BaseModel.get_table_name("listings") + ".listing_id"),
-        primary_key=True
+        primary_key=True,
     )
     property_id: Mapped[int] = mapped_column(
         Integer,
         ForeignKey(BaseModel.get_table_name("properties") + ".property_id"),
-        primary_key=True
+        primary_key=True,
     )
     value: Mapped[str] = mapped_column(String, nullable=False)
-
     # Relationships
     listing = relationship("Listing", back_populates="string_properties")
     property = relationship("Property", back_populates="string_values")
@@ -59,12 +92,12 @@ class BooleanPropertyValue(BaseModel):
     listing_id: Mapped[str] = mapped_column(
         String,
         ForeignKey(BaseModel.get_table_name("listings") + ".listing_id"),
-        primary_key=True
+        primary_key=True,
     )
     property_id: Mapped[int] = mapped_column(
         Integer,
         ForeignKey(BaseModel.get_table_name("properties") + ".property_id"),
-        primary_key=True
+        primary_key=True,
     )
     value: Mapped[bool] = mapped_column(Boolean, nullable=False)
 
@@ -79,3 +112,8 @@ class DatasetEntity(BaseModel):
     entity_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     data: Mapped[dict] = mapped_column(JSON, nullable=False)
+
+    # Relationships
+    listings = relationship(
+        "Listing", secondary=listing_entity_association, back_populates="entities"
+    )

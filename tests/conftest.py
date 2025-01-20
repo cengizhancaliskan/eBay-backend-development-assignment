@@ -1,10 +1,10 @@
-import asyncio
-from typing import AsyncGenerator, Generator
+from typing import AsyncGenerator
 
 import pytest
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from httpx import ASGITransport, AsyncClient
-from fastapi import FastAPI
+
 from src.main import app as fastapi_app
 
 
@@ -22,7 +22,7 @@ def client(app: FastAPI) -> TestClient:
 async def async_client(app: FastAPI) -> AsyncGenerator[AsyncClient, None]:
     transport = ASGITransport(app=app)
     async with AsyncClient(
-            transport=transport,
-            base_url="http://test",
+        transport=transport,
+        base_url="http://test",
     ) as client:
         yield client

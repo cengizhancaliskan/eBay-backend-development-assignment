@@ -1,4 +1,4 @@
-.PHONY: install format lint test clean run migrate
+.PHONY: install format lint test clean run migrate migrations
 
 include .env
 export
