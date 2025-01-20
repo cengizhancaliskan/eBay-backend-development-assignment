@@ -52,7 +52,10 @@ class Listing(BaseModel):
     string_properties = relationship("StringPropertyValue", back_populates="listing")
     boolean_properties = relationship("BooleanPropertyValue", back_populates="listing")
     entities = relationship(
-        "DatasetEntity", secondary=listing_entity_association, back_populates="listings"
+        "DatasetEntity",
+        secondary=listing_entity_association,
+        back_populates="listings",
+        lazy="selectin",
     )
 
 

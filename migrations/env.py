@@ -8,7 +8,7 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from src.core.config import settings as appconfig  # noqa
-from src.db.base import Base  # noqa
+from src.models.base import Base  # noqa
 from src.models.listing import *  # noqa: F403
 
 
