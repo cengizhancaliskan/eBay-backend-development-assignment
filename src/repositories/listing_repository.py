@@ -63,9 +63,13 @@ class ListingRepository:
         self, listing_data: ListingCreateOrUpdateSchema
     ) -> tuple[Listing, bool]:
         try:
-            stmt = select(Listing).where(Listing.listing_id == listing_data.listing_id)
+            stmt = (
+                select(Listing)
+                .options(joinedload(Listing.entities))
+                .where(Listing.listing_id == listing_data.listing_id)
+            )
             result = await self._session.execute(stmt)
-            existing_listing = result.scalar_one_or_none()
+            existing_listing = result.scalars().unique().one_or_none()
             is_new = existing_listing is None
 
             if existing_listing:
@@ -233,9 +237,9 @@ class ListingRepository:
                     self._session.add(entity_obj)
                     await self._session.flush()
 
-                # Append the entity to the listing's entities relationship
+                # Append the entity to the listing's entities relationship and dataset_entity_ids list
                 if entity_obj not in listing.entities:
                     listing.entities.append(entity_obj)
-                # listing.dataset_entity_ids.append(entity_obj.entity_id)
+                listing.dataset_entity_ids.append(entity_obj.entity_id)
         except SQLAlchemyError as e:
             raise DatabaseError(f"Error updating entity references: {str(e)}")
