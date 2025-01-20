@@ -158,10 +158,11 @@ class ListingRepository:
                 is_active=data.is_active,
                 image_hashes=data.image_hashes,
                 dataset_entity_ids=[],
-                # Initialize empty list for relationship, will be updated later in the upsert process
             )
             self._session.add(listing)
+
             await self._session.flush()
+            await self._session.refresh(listing)
 
             return listing
         except SQLAlchemyError as e:
@@ -218,12 +219,12 @@ class ListingRepository:
                     property_val_obj_stmt = select(BooleanPropertyValue).where(
                         BooleanPropertyValue.property_id == property_obj.property_id,
                         BooleanPropertyValue.listing_id == listing.listing_id,
-                    )
+                    )  # type: ignore
                     new_prop_val_obj = BooleanPropertyValue(
                         listing_id=listing.listing_id,
                         property_id=property_obj.property_id,
                         value=prop.value,
-                    )
+                    )  # type: ignore
                 else:
                     raise ValidationError(f"Invalid property type: {property_obj.type}")
                 property_val_obj_result = await self._session.execute(
@@ -248,7 +249,11 @@ class ListingRepository:
                 listing_entity_association.c.listing_id == listing.listing_id
             )
             await self._session.execute(delete_stmt)
-            listing.dataset_entity_ids = []
+
+            # Clear existing relationships
+            new_entity_ids = []
+            listing.entities = []
+            is_listing_changed = False
 
             for entity in entities:
                 stmt = select(DatasetEntity).where(DatasetEntity.name == entity.name)
@@ -262,9 +267,16 @@ class ListingRepository:
 
                 # Append the entity to the listing's entities relationship and dataset_entity_ids list
                 if entity_obj not in listing.entities:
+                    is_listing_changed = True
                     listing.entities.append(entity_obj)
 
-                if entity_obj.entity_id not in listing.dataset_entity_ids:
-                    listing.dataset_entity_ids.append(entity_obj.entity_id)
+                if entity_obj.entity_id not in new_entity_ids:
+                    is_listing_changed = True
+                    new_entity_ids.append(entity_obj.entity_id)
+
+            listing.dataset_entity_ids = new_entity_ids
+            if is_listing_changed:
+                await self._session.flush()
+
         except SQLAlchemyError as e:
             raise DatabaseError(f"Error updating entity references: {str(e)}")
