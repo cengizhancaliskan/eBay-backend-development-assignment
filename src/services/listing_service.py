@@ -90,9 +90,8 @@ class ListingService:
     # @staticmethod
     def _get_entities(self, listing: Listing) -> list[EntitySchema]:
         entities: list[EntitySchema] = []
-        # TODO: Implement this method
-        # for entity_id in listing.dataset_entity_ids:
-        #     entity = self.repository.db_session.query(DatasetEntity).filter(DatasetEntity.entity_id == entity_id).first()
-        #     if entity:
-        #         entities.append(EntitySchema(name=entity.name, data=entity.data))
+
+        for entity in listing.entities:
+            entities.append(EntitySchema(name=entity.name, data=entity.data))
+
         return entities

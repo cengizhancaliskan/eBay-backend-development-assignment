@@ -240,6 +240,8 @@ class ListingRepository:
                 # Append the entity to the listing's entities relationship and dataset_entity_ids list
                 if entity_obj not in listing.entities:
                     listing.entities.append(entity_obj)
-                listing.dataset_entity_ids.append(entity_obj.entity_id)
+
+                if entity_obj.entity_id not in listing.dataset_entity_ids:
+                    listing.dataset_entity_ids.append(entity_obj.entity_id)
         except SQLAlchemyError as e:
             raise DatabaseError(f"Error updating entity references: {str(e)}")
