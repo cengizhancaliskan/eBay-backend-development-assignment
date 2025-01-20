@@ -1,0 +1,464 @@
+{
+	"info": {
+		"_postman_id": "06a8ebc3-892a-48eb-bc36-f692f715fac6",
+		"name": "Ebay Backend Assignment Listing API",
+		"description": "Ebay Backend Assignment with SQLAlchemy and PostgreSQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "997424"
+	},
+	"item": [
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "listings",
+					"item": [
+						{
+							"name": "Get Listings",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/listings?page=1&page_size=100",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"listings"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "page_size",
+											"value": "100"
+										},
+										{
+											"key": "listing_id",
+											"value": "190396",
+											"disabled": true
+										},
+										{
+											"key": "scan_date_from",
+											"value": "2024-07-23 12:00:00",
+											"disabled": true
+										},
+										{
+											"key": "scan_date_to",
+											"value": "2025-10-22 12:00:00",
+											"disabled": true
+										},
+										{
+											"key": "is_active",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "image_hashes",
+											"value": "2e32d2",
+											"disabled": true
+										},
+										{
+											"key": "image_hashes",
+											"value": "f54t45r",
+											"disabled": true
+										},
+										{
+											"key": "dataset_entities",
+											"value": "{\"key1\":\"value1\"}",
+											"disabled": true
+										},
+										{
+											"key": "property_filters",
+											"value": "{\"name\":\"some str property\"}",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Successful Response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/listings?page=1&page_size=<integer>&listing_id=<string>&scan_date_from=<dateTime>&scan_date_to=<dateTime>&is_active=<boolean>&image_hashes=<string>&image_hashes=<string>&dataset_entities=<string>&property_filters=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"listings"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "page_size",
+													"value": "<integer>"
+												},
+												{
+													"key": "listing_id",
+													"value": "<string>"
+												},
+												{
+													"key": "scan_date_from",
+													"value": "<dateTime>"
+												},
+												{
+													"key": "scan_date_to",
+													"value": "<dateTime>"
+												},
+												{
+													"key": "is_active",
+													"value": "<boolean>"
+												},
+												{
+													"key": "image_hashes",
+													"value": "<string>"
+												},
+												{
+													"key": "image_hashes",
+													"value": "<string>"
+												},
+												{
+													"key": "dataset_entities",
+													"value": "<string>"
+												},
+												{
+													"key": "property_filters",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"listings\": [\n    {\n      \"listing_id\": \"<string>\",\n      \"scan_date\": \"<dateTime>\",\n      \"is_active\": \"<boolean>\",\n      \"dataset_entity_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"image_hashes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"properties\": [\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"entities\": [\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        }\n      ]\n    },\n    {\n      \"listing_id\": \"<string>\",\n      \"scan_date\": \"<dateTime>\",\n      \"is_active\": \"<boolean>\",\n      \"dataset_entity_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"image_hashes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"properties\": [\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"entities\": [\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        }\n      ]\n    }\n  ],\n  \"total\": \"<integer>\"\n}"
+								},
+								{
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/listings?page=1&page_size=<integer>&listing_id=<string>&scan_date_from=<dateTime>&scan_date_to=<dateTime>&is_active=<boolean>&image_hashes=<string>&image_hashes=<string>&dataset_entities=<string>&property_filters=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"listings"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "page_size",
+													"value": "<integer>"
+												},
+												{
+													"key": "listing_id",
+													"value": "<string>"
+												},
+												{
+													"key": "scan_date_from",
+													"value": "<dateTime>"
+												},
+												{
+													"key": "scan_date_to",
+													"value": "<dateTime>"
+												},
+												{
+													"key": "is_active",
+													"value": "<boolean>"
+												},
+												{
+													"key": "image_hashes",
+													"value": "<string>"
+												},
+												{
+													"key": "image_hashes",
+													"value": "<string>"
+												},
+												{
+													"key": "dataset_entities",
+													"value": "<string>"
+												},
+												{
+													"key": "property_filters",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Or Update Listings",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Create a new Date object for the current date and time",
+											"var currentDate = new Date();",
+											"",
+											"// Function to pad single digits with a leading zero",
+											"function pad(number) {",
+											"    return (number < 10 ? '0' : '') + number;",
+											"}",
+											"",
+											"// Format the date and time as \"YYYY-MM-DDTHH:MM:SS\"",
+											"var formattedDate = currentDate.getFullYear() + '-' +",
+											"    pad(currentDate.getMonth() + 1) + '-' +",
+											"    pad(currentDate.getDate()) + 'T' +",
+											"    pad(currentDate.getHours()) + ':' +",
+											"    pad(currentDate.getMinutes()) + ':' +",
+											"    pad(currentDate.getSeconds());",
+											"",
+											"// Set the formatted date as an environment variable",
+											"pm.environment.set(\"currentDateTime\", formattedDate);",
+											"",
+											"// Log the formatted date to the console for verification",
+											"console.log(\"Current DateTime: \" + formattedDate);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"listings\": [\n        {\n            \"listing_id\": \"190396\",\n            \"scan_date\": \"{{currentDateTime}}\",\n            \"is_active\": \"true\",\n            \"image_hashes\": [\n                \"2e32d2\",\n                \"f54t45r\"\n            ],\n            \"properties\": [\n                {\n                    \"name\": \"some str property6\",\n                    \"type\": \"str\",\n                    \"value\": \"str value\"\n                },\n                {\n                    \"name\": \"some bool property6\",\n                    \"type\": \"bool\",\n                    \"value\": false\n                }\n            ],\n            \"entities\": [\n                {\n                    \"name\": \"entity_one11081\",\n                    \"data\": {\n                        \"key1\": \"value1\",\n                        \"key2\": 123\n                    }\n                },\n                {\n                    \"name\": \"entity_two11091\",\n                    \"data\": {\n                        \"key1\": \"value1\",\n                        \"key2\": 643\n                    }\n                }\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/listings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"listings"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Successful Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"listings\": [\n    {\n      \"listing_id\": \"<string>\",\n      \"scan_date\": \"<dateTime>\",\n      \"is_active\": \"<boolean>\",\n      \"image_hashes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"properties\": [\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"entities\": [\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        }\n      ]\n    },\n    {\n      \"listing_id\": \"<string>\",\n      \"scan_date\": \"<dateTime>\",\n      \"is_active\": \"<boolean>\",\n      \"image_hashes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"properties\": [\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"entities\": [\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        }\n      ]\n    }\n  ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v1/listings",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"listings"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"success\": \"<boolean>\",\n  \"message\": \"<string>\",\n  \"created_count\": \"<integer>\",\n  \"updated_count\": \"<integer>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}"
+								},
+								{
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"listings\": [\n    {\n      \"listing_id\": \"<string>\",\n      \"scan_date\": \"<dateTime>\",\n      \"is_active\": \"<boolean>\",\n      \"image_hashes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"properties\": [\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"entities\": [\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        }\n      ]\n    },\n    {\n      \"listing_id\": \"<string>\",\n      \"scan_date\": \"<dateTime>\",\n      \"is_active\": \"<boolean>\",\n      \"image_hashes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"properties\": [\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"entities\": [\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"data\": \"<object>\"\n        }\n      ]\n    }\n  ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v1/listings",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"listings"
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"status"
+							]
+						},
+						"description": "Health check endpoint for monitoring and load balancers."
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"status"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<string>\",\n  \"version\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/",
+			"type": "string"
+		}
+	]
+}
