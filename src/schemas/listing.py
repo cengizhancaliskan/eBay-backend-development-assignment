@@ -1,7 +1,14 @@
 from datetime import datetime
 from typing import Any, Optional, Union
 
+from fastapi import Depends
 from pydantic import BaseModel, ConfigDict, Field
+
+from src.schemas.dependency import (
+    parse_dataset_entities,
+    parse_image_hashes,
+    parse_property_filters,
+)
 
 
 class PropertySchema(BaseModel):
@@ -34,9 +41,9 @@ class ListingFilterSchema(BaseModel):
     scan_date_from: Optional[datetime] = None
     scan_date_to: Optional[datetime] = None
     is_active: Optional[bool] = None
-    image_hashes: Optional[list[str]] = None
-    dataset_entities: Optional[dict[str, Any]] = None
-    property_filters: Optional[dict[str, Any]] = None
+    image_hashes: Optional[list[str]] = Depends(parse_image_hashes)
+    dataset_entities: Optional[dict[str, Any]] = Depends(parse_dataset_entities)
+    property_filters: Optional[dict[str, Any]] = Depends(parse_property_filters)
 
 
 class ListingResponse(BaseModel):

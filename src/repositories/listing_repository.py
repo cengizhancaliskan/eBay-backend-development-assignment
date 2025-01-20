@@ -1,6 +1,7 @@
 from typing import Any
 
-from sqlalchemy import Select, delete, func, select
+from sqlalchemy import Select, and_, delete, func, select
+from sqlalchemy.dialects.postgresql import array
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload, selectinload
@@ -115,17 +116,38 @@ class ListingRepository:
             stmt = stmt.filter(Listing.is_active == filters.is_active)
 
         if filters.image_hashes:
-            stmt = stmt.filter(Listing.image_hashes.overlap(filters.image_hashes))
-
-        if filters.dataset_entities:
             stmt = stmt.filter(
-                Listing.dataset_entity_ids.overlap(filters.dataset_entities)
+                Listing.image_hashes.op("@>")(array(filters.image_hashes))
             )
 
-        if filters.property_filters:
-            # TODO: Implement property filters
-            pass
+        if filters.dataset_entities:
+            for key, val in filters.dataset_entities.items():
+                stmt = stmt.join(Listing.entities).filter(
+                    DatasetEntity.data[key].op("->>")(key) == str(val)
+                )
 
+        if filters.property_filters:
+            for property_id, expected_value in filters.property_filters.items():
+                stmt = (
+                    stmt.join(Listing.string_properties)  # type: ignore
+                    .join(StringPropertyValue.property)
+                    .filter(
+                        and_(
+                            Property.property_id == property_id,
+                            StringPropertyValue.value == str(expected_value),
+                        )
+                    )
+                    .union(
+                        stmt.join(Listing.boolean_properties)
+                        .join(BooleanPropertyValue.property)
+                        .filter(
+                            and_(
+                                Property.property_id == property_id,
+                                BooleanPropertyValue.value == bool(expected_value),
+                            )
+                        )
+                    )
+                )
         return stmt
 
     async def _create_listing(self, data: ListingCreateOrUpdateSchema) -> Listing:
@@ -135,7 +157,8 @@ class ListingRepository:
                 scan_date=data.scan_date.replace(tzinfo=None),
                 is_active=data.is_active,
                 image_hashes=data.image_hashes,
-                dataset_entity_ids=[],  # Initialize empty list for relationship, will be updated later in the upsert process
+                dataset_entity_ids=[],
+                # Initialize empty list for relationship, will be updated later in the upsert process
             )
             self._session.add(listing)
             await self._session.flush()
