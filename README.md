@@ -22,6 +22,13 @@ Note: WIP
 ```
 
 #### 2.2 Or run the application using docker and docker compose:
+Use the following configuration for you .env.
+postgres_server is the name of the service in the docker-compose file.
+```dotenv
+POSTGRES_SERVER=db
+POSTGRES_PORT=5432
+```
+
 ```bash
    make docker-up
 ```
