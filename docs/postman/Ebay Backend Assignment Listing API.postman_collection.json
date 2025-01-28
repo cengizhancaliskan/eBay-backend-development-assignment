@@ -43,7 +43,7 @@
 										},
 										{
 											"key": "listing_id",
-											"value": "190396",
+											"value": "19031",
 											"disabled": true
 										},
 										{
@@ -62,23 +62,23 @@
 											"disabled": true
 										},
 										{
-											"key": "image_hashes",
+											"key": "dataset_entities",
+											"value": "{\"key1\": \"value1\", \"key2\": 643}",
+											"disabled": true
+										},
+										{
+											"key": "property_filters[\"16\"]",
+											"value": "{\"16\":\"false\"}",
+											"disabled": true
+										},
+										{
+											"key": "image_hashes[]",
 											"value": "2e32d2",
 											"disabled": true
 										},
 										{
-											"key": "image_hashes",
+											"key": "image_hashes[]",
 											"value": "f54t45r",
-											"disabled": true
-										},
-										{
-											"key": "dataset_entities",
-											"value": "{\"key1\":\"value1\"}",
-											"disabled": true
-										},
-										{
-											"key": "property_filters",
-											"value": "{\"name\":\"some str property\"}",
 											"disabled": true
 										}
 									]
@@ -286,7 +286,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"listings\": [\n        {\n            \"listing_id\": \"190396\",\n            \"scan_date\": \"{{currentDateTime}}\",\n            \"is_active\": \"true\",\n            \"image_hashes\": [\n                \"2e32d2\",\n                \"f54t45r\"\n            ],\n            \"properties\": [\n                {\n                    \"name\": \"some str property6\",\n                    \"type\": \"str\",\n                    \"value\": \"str value\"\n                },\n                {\n                    \"name\": \"some bool property6\",\n                    \"type\": \"bool\",\n                    \"value\": false\n                }\n            ],\n            \"entities\": [\n                {\n                    \"name\": \"entity_one11081\",\n                    \"data\": {\n                        \"key1\": \"value1\",\n                        \"key2\": 123\n                    }\n                },\n                {\n                    \"name\": \"entity_two11091\",\n                    \"data\": {\n                        \"key1\": \"value1\",\n                        \"key2\": 643\n                    }\n                }\n            ]\n        }\n    ]\n}",
+									"raw": "{\n    \"listings\": [\n        {\n            \"listing_id\": \"190396\",\n            \"scan_date\": \"{{currentDateTime}}\",\n            \"is_active\": \"true\",\n            \"image_hashes\": [\n                \"2e32d2\",\n                \"f54t45r\"\n            ],\n            \"properties\": [\n                {\n                    \"name\": \"some str property6\",\n                    \"type\": \"str\",\n                    \"value\": \"str value\"\n                },\n                {\n                    \"name\": \"some bool property6\",\n                    \"type\": \"bool\",\n                    \"value\": false\n                }\n            ],\n            \"entities\": [\n                {\n                    \"name\": \"entity_one11081\",\n                    \"data\": {\n                        \"key1\": \"value1\",\n                        \"key2\": 123\n                    }\n                },\n                {\n                    \"name\": \"entity_two11091\",\n                    \"data\": {\n                        \"key1\": \"value1\",\n                        \"key2\": 643\n                    }\n                }\n            ]\n        },\n         {\n            \"listing_id\": \"190397\",\n            \"scan_date\": \"{{currentDateTime}}\",\n            \"is_active\": \"true\",\n            \"image_hashes\": [\n                \"2e32d2\",\n                \"f54t45r\"\n            ],\n            \"properties\": [\n                {\n                    \"name\": \"some str property6\",\n                    \"type\": \"str\",\n                    \"value\": \"str value\"\n                },\n                {\n                    \"name\": \"some bool property6\",\n                    \"type\": \"bool\",\n                    \"value\": false\n                }\n            ],\n            \"entities\": [\n                {\n                    \"name\": \"entity_one11081\",\n                    \"data\": {\n                        \"key1\": \"value1\",\n                        \"key2\": 123\n                    }\n                },\n                {\n                    \"name\": \"entity_two11091\",\n                    \"data\": {\n                        \"key1\": \"value1\",\n                        \"key2\": 643\n                    }\n                }\n            ]\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
